@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Natural Selection — Design Portfolio</title>
+  <style>
+    /* CSS VARIABLES - DARK MODE (DEFAULT) */
+    :root[data-theme="dark"] {
+      --bg: #0b0b0c;
+      --surface: #141416;
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #f3f3f4;
+      --muted: #8e8e93;
+      --accent: #e5ff00;
+      --accent-text: #0b0b0c;
+      --header-bg: rgba(11, 11, 12, 0.85);
+    }
+
+    /* CSS VARIABLES - LIGHT MODE */
+    :root[data-theme="light"] {
+      --bg: #f5f5f7;
+      --surface: #ffffff;
+      --border: rgba(0, 0, 0, 0.12);
+      --text: #111113;
+      --muted: #6e6e73;
+      --accent: #2b2b2e;
+      --accent-text: #ffffff;
+      --header-bg: rgba(245, 245, 247, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* HEADER & NAV */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--header-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .brand {
+      font-family: "SF Mono", "Courier New", Courier, monospace;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent);
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      font-family: "SF Mono", "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    nav a:hover {
+      color: var(--text);
+    }
+
+    /* THEME TOGGLE BUTTON */
+    .theme-toggle {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: "SF Mono", "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--text);
+    }
+
+    /* HERO SECTION */
+    .hero {
+      padding: 6rem 2rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-tag {
+      font-family: "SF Mono", "Courier New", Courier, monospace;
+      color: var(--accent);
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+      max-width: 900px;
+    }
+
+    .hero-sub {
+      color: var(--muted);
+      font-size: 1.15rem;
+      max-width: 600px;
+    }
+
+    /* FILTER TABS */
+    .filter-bar {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem 1rem;
+      display: flex;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-btn {
+      background: none;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-family: "SF Mono", "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      color: var(--text);
+      border-color: var(--border);
+      background: var(--surface);
+    }
+
+    /* GALLERY GRID */
+    .grid-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--text);
+    }
+
+    .card-media {
+      width: 100%;
+      height: 240px;
+      background: var(--border);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .card:hover .card-media img {
+      transform: scale(1.04);
+    }
+
+    .fig-label {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "SF Mono", "Courier New", Courier, monospace;
+      font-size: 0.7rem;
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.05em;
+      border: 1px solid var(--border);
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .card-meta {
+      font-family: "SF Mono", "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-link {
+      font-family: "SF Mono", "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      color: var(--text);
+      font-weight: 600;
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      padding: 4rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+
+    .footer-heading {
+      font-family: "SF Mono", "Courier New", Courier, monospace;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .footer-email {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--text);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    .copyright {
+      max-width: 1200px;
+      margin: 3rem auto 0;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-family: "SF Mono", "Courier New", Courier, monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    @media (max-width: 768px) {
+      header { padding: 1rem; }
+      .hero { padding: 4rem 1rem 2rem; }
+      .grid-container { padding: 0 1rem 4rem; }
+      .filter-bar { padding: 0 1rem 1rem; overflow-x: auto; }
+      .header-actions { gap: 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand">
+      <span class="status-dot"></span>
+      Natural Selection / Studio
+    </div>
+    <div class="header-actions">
+      <nav>
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">
+        <span id="themeIcon">☀️</span> <span id="themeText">Light</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">[ EVOLVING DIGITAL EXPERIENCES ]</div>
+    <h1 class="hero-title">Cultivating digital products & brand systems with clarity and purpose.</h1>
+    <p class="hero-sub">Independent designer specializing in UI/UX architecture, creative direction, and interactive systems.</p>
+  </section>
+
+  <!-- FILTER TABS -->
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterProjects(event, 'all')">All Work</button>
+    <button class="filter-btn" onclick="filterProjects(event, 'branding')">Branding</button>
+    <button class="filter-btn" onclick="filterProjects(event, 'web')">Web Design</button>
+    <button class="filter-btn" onclick="filterProjects(event, 'system')">Systems</button>
+  </div>
+
+  <!-- PROJECTS GRID -->
+  <main class="grid-container" id="work">
+
+    <article class="card" data-category="web">
+      <div class="card-media">
+        <span class="fig-label">[ FIG.01 ]</span>
+        <img src="https://picsum.photos/600/400?random=1" alt="Aura Platform preview" />
+      </div>
+      <div class="card-body">
+        <div class="card-meta">2026 — Web Architecture</div>
+        <h2 class="card-title">Aura Platform</h2>
+        <p class="card-desc">Redesigning a real-time collaborative workspace for creative teams.</p>
+        <a href="#" class="card-link">View Case Study &rarr;</a>
+      </div>
+    </article>
+
+    <article class="card" data-category="branding">
+      <div class="card-media">
+        <span class="fig-label">[ FIG.02 ]</span>
+        <img src="https://picsum.photos/600/400?random=2" alt="Verve Audio preview" />
+      </div>
+      <div class="card-body">
+        <div class="card-meta">2025 — Brand Identity</div>
+        <h2 class="card-title">Verve Audio</h2>
+        <p class="card-desc">A minimal identity and packaging design for high-fidelity audio equipment.</p>
+        <a href="#" class="card-link">View Case Study &rarr;</a>
+      </div>
+    </article>
+
+    <article class="card" data-category="system">
+      <div class="card-media">
+        <span class="fig-label">[ FIG.03 ]</span>
+        <img src="https://picsum.photos/600/400?random=3" alt="Monolith UI preview" />
+      </div>
+      <div class="card-body">
+        <div class="card-meta">2025 — Design System</div>
+        <h2 class="card-title">Monolith UI</h2>
+        <p class="card-desc">Comprehensive component library and design token specification.</p>
+        <a href="#" class="card-link">View Case Study &rarr;</a>
+      </div>
+    </article>
+
+    <article class="card" data-category="web">
+      <div class="card-media">
+        <span class="fig-label">[ FIG.04 ]</span>
+        <img src="https://picsum.photos/600/400?random=4" alt="Kinetix Motion preview" />
+      </div>
+      <div class="card-body">
+        <div class="card-meta">2024 — Digital Product</div>
+        <h2 class="card-title">Kinetix Motion</h2>
+        <p class="card-desc">Interactive landing pages showcasing procedural 3D motion design.</p>
+        <a href="#" class="card-link">View Case Study &rarr;</a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- FOOTER / CONTACT -->
+  <footer id="contact">
+    <div class="footer-content">
+      <div>
+        <div class="footer-heading">Initiate Contact</div>
+        <a href="mailto:hello@example.com" class="footer-email">hello@example.com</a>
+      </div>
+      <div>
+        <div class="footer-heading">Location</div>
+        <p style="color: var(--muted);">Available globally for select freelance & consulting engagements.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Connect</div>
+        <ul class="footer-links">
+          <li><a href="#">GitHub</a></li>
+          <li><a href="#">LinkedIn</a></li>
+          <li><a href="#">X / Twitter</a></li>
+          <li><a href="#">ReadCV</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="copyright">
+      <span>&copy; 2026 Portfolio Studio</span>
+      <span>Built with HTML, CSS & Vanilla JS</span>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT: THEME TOGGLE & FILTERING -->
+  <script>
+    // 1. Theme Switching Logic
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      html.setAttribute('data-theme', newTheme);
+      
+      // Update Button Text & Icon
+      document.getElementById('themeIcon').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+      document.getElementById('themeText').textContent = newTheme === 'dark' ? 'Light' : 'Dark';
+    }
+
+    // 2. Filter Bar Logic
+    function filterProjects(event, category) {
+      const cards = document.querySelectorAll('.card');
+      const buttons = document.querySelectorAll('.filter-btn');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
