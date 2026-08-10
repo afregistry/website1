@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Natural Selection (Atkinson Hyperlegible)</title>
+    <title>Talent Directory Clone</title>
     
-    <!-- Google Font: Atkinson Hyperlegible -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
@@ -15,72 +14,33 @@
 <body>
     <header class="navbar">
         <div class="logo">
-            <strong>Natural Selection</strong>
+            <strong>Directory</strong>
         </div>
         <div class="nav-actions">
             <button id="theme-toggle" class="btn">Dark Mode</button>
-            <button class="btn btn-primary">Sign In</button>
+            <button class="btn btn-primary">Join Roster</button>
         </div>
     </header>
 
     <div class="layout-container">
         <aside class="sidebar">
             <div class="filter-section">
-                <h3>Role</h3>
-                <label class="checkbox-container">
-                    <input type="checkbox" checked>
-                    <span class="checkmark"></span>
-                    Design
-                </label>
-                <label class="checkbox-container">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                    Engineering
-                </label>
-                <label class="checkbox-container">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                    Product
-                </label>
+                <h3>Discipline</h3>
+                <label class="checkbox-container"><input type="checkbox" checked><span class="checkmark"></span>Design</label>
+                <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Engineering</label>
+                <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Product</label>
             </div>
 
             <div class="filter-section">
-                <h3>Availability</h3>
-                <label class="checkbox-container">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                    Full-time
-                </label>
-                <label class="checkbox-container">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                    Contract
-                </label>
-                <label class="checkbox-container">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                    Part-time
-                </label>
-            </div>
-
-            <div class="filter-section">
-                <h3>Location</h3>
-                <label class="checkbox-container">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                    Remote
-                </label>
-                <label class="checkbox-container">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                    On-site
-                </label>
+                <h3>Commitment</h3>
+                <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Full-time</label>
+                <label class="checkbox-container"><input type="checkbox"><span class="checkmark"></span>Contract</label>
             </div>
         </aside>
 
         <main class="main-content">
             <div class="grid" id="profiles-grid">
-                <!-- Profiles will be injected here via JavaScript -->
+                <!-- JavaScript will populate this -->
             </div>
         </main>
     </div>
