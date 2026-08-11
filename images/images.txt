@@ -1,0 +1,1 @@
+Folder for images to be referenced across the website.
